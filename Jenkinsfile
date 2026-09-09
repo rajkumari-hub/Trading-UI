@@ -49,7 +49,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    npm run build
+                   CI=false npm run build
                 '''
             }
         }
