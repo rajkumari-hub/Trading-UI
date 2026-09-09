@@ -293,7 +293,7 @@ export class Purchase extends Component {
                         <h7 >***Brokerage fee is 10%</h7>
                     </div>
                     <span>
-                        <button id="submitsearch" type="submit" className="but" onClick={this.handleSubmit}>Buy</button>
+                        <button id="submit" type="submit" className="but" onClick={this.handleSubmit}>Buy</button>
                     </span>
                     <span>&nbsp;&nbsp;
                 <button id="submitcancel" type="submit" className="but" onClick={this.handleCancel}>Cancel</button>
