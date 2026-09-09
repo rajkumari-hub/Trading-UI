@@ -1,9 +1,10 @@
+
 pipeline {
 
     agent any
 
     tools {
-        nodejs 'NodeJS-22'
+        nodejs 'Node-22'
     }
 
     environment {
@@ -15,8 +16,8 @@ pipeline {
 
         stage('Git Clone') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/betawins/Trading-UI.git'
+                git branch: 'master',
+                    url: 'https://github.com/rajkumari-hub/Trading-UI.git'
             }
         }
 
@@ -56,10 +57,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                    docker build \
-                    -t ${DOCKER_IMAGE}:${BUILD_NUMBER} \
-                    -t ${DOCKER_IMAGE}:latest \
-                    .
+                    docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} -t ${DOCKER_IMAGE}:latest .
                 '''
             }
         }
@@ -75,8 +73,8 @@ pipeline {
                 ]) {
                     sh '''
                         echo "$DOCKER_PASSWORD" | docker login \
-                        -u "$DOCKER_USERNAME" \
-                        --password-stdin
+                            -u "$DOCKER_USERNAME" \
+                            --password-stdin
 
                         docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}
                         docker push ${DOCKER_IMAGE}:latest
@@ -96,9 +94,9 @@ pipeline {
                     docker rm trading-ui || true
 
                     docker run -d \
-                      --name trading-ui \
-                      -p 8081:80 \
-                      ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                        --name trading-ui \
+                        -p 8081:80 \
+                        ${DOCKER_IMAGE}:${BUILD_NUMBER}
                 '''
             }
         }
@@ -114,3 +112,4 @@ pipeline {
         }
     }
 }
+
